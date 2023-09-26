@@ -10,7 +10,7 @@ make px4_sitl gz_x500
 #connect to the drone to the sitl with ros2 
 
 source --> source /opt/ros/foxy/setup.bash
-ros2 run mavros mavros_node --ros-args --param fcu_url:=udp://127.0.0.1:14550
+ros2 run mavros mavros_node --ros-args --param fcu_url:=udp://127.0.0.1:14550@
 
 the drone need to detect 
 
