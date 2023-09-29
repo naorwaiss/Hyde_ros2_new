@@ -14,4 +14,8 @@ ros2 run mavros mavros_node --ros-args --param fcu_url:=udp://127.0.0.1:14550@
 
 the drone need to detect 
 
+#to use ros2 command we need to run the main node run (mavros_node)
+ros2 service call /mavros/cmd/arming mavros_msgs/srv/CommandBool "{value: True}"
+
+
 
