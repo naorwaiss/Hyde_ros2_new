@@ -19,6 +19,25 @@ ros2 service call /mavros/cmd/arming mavros_msgs/srv/CommandBool "{value: True}"
 
 
 
+
+
+
+
+
+
+
+===========================================================================================
+
+intel real sense 
+run the main node :
+ros2 launch realsense2_camera rs_launch.py enable_pointcloud:=true device_type:=l515
+
+
+
+
+-------------------------------------------------------------------------------
+mission to do 
+
 #go to:   https://github.com/mavlink/mavros/issues/1718  
 this plane explain about the command that we can gave to the drone with ros2    (30.9 --- 20:32)
 
