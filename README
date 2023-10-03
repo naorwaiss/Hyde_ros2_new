@@ -42,4 +42,8 @@ mission to do
 this plane explain about the command that we can gave to the drone with ros2    (30.9 --- 20:32)
 
 
+------------------------------------------------------------------------------------
+
+
+ros2 run mavros mavros_node --ros-args -p fcu_url:=/dev/ttyTHS0,115200 -p gcs_url:=udp://@127.0.0.1
 
