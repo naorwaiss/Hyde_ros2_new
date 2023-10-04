@@ -1,6 +1,9 @@
 import time
 from pymavlink import mavutil
 import asyncio
+from pymavlink.dialects.v10 import ardupilotmega as MAV_APM
+
+srcSystem=1
 
 class HydeMotion(object):
     lat = int(32.0747 * 1e7)  # Terni
@@ -36,7 +39,7 @@ class HydeMotion(object):
             self.arm = 1
 
     def start_guided(self):
-        # Change to GUIDED mode:
+        # Change to GUIDED mode and arm the drone -- can deactivate the arm drone with the code
         print("GUIDED mode")
         #self.set_global_origin()
         #self.set_home_position()
@@ -71,13 +74,40 @@ class HydeMotion(object):
                 print("Finished takeoff")
 
 
+    def set_global_origin(self):
+        """
+        Send a mavlink SET_GPS_GLOBAL_ORIGIN message, which allows us
+        to use local position information without a GPS.
+        """
+        target_system = self.mav.srcSystem
+        # target_system = 0   # 0 --> broadcast to everyone
+        lattitude = self.lat
+        longitude = self.lon
+        altitude = self.alt
+        print("{} , {}, {}, {}".format(target_system, lattitude, longitude, altitude))
+        msg = MAV_APM.MAVLink_set_gps_global_origin_message(
+            target_system,
+            lattitude,
+            longitude,
+            altitude)
+        print("{} ".format(msg))
 
+        #self.send_message(msg)
 
 
 
 
 async def main():
     hyde_motion = HydeMotion()
+
+    msg = hyde_motion.autopilot.recv_match(type='GLOBAL_POSITION_INT', blocking=True)
+    print("check if the fake position arrive - before ")
+    print(msg)
+    print("try to make make fake position")
+    hyde_motion.set_global_origin()
+
+    print("check if the fake position arrive - after ")
+
 
     while True:
         command = input("Enter a command (guided/takeoff/exit): ")
